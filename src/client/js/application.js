@@ -1,9 +1,9 @@
 /* Global Variables */
 
-const button = document.querySelector('#generate');
+// const button = document.querySelector('#generate');
 const feeling = document.getElementById('feelings');
 const zip = document.querySelector('#zip');
-const apiKey = '2355a2b859c12189c628fa4...';
+const apiKey = '';
 const url = 'https://api.openweathermap.org/data/2.5/weather?zip=';
 
 // Create a new date instance dynamically with JS
@@ -12,7 +12,7 @@ let newDate = `${d.getMonth() + 1}.${d.getDate()}.${d.getFullYear()}`;
 
 // Listen for a click on generate button to start the app
 
-button.addEventListener("click", runApp);
+// button.addEventListener("click", runApp);
 
 function runApp() {
     getData(`${url}${zip.value}&appid=${apiKey}`).then(function (data) {
@@ -71,3 +71,5 @@ const updateUI = async () => {
         console.log("error", error);
     }
 };
+
+export { runApp, getData, postData, updateUI}

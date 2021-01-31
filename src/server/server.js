@@ -1,3 +1,6 @@
+const dotenv = require('dotenv');
+dotenv.config();
+
 // Setup empty JS object to act as endpoint for all routes
 projectData = {};
 
@@ -20,6 +23,10 @@ app.use(bodyParser.json());
 
 // Initialize the main project folder
 app.use(express.static('dist'));
+
+app.get('/', function (req, res) {
+    res.sendFile('dist/index.html')
+})
 
 // GET route returns projectData object
 app.get("/all", (req, res) => {
