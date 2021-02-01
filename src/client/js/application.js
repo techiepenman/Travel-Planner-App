@@ -15,27 +15,29 @@ let newDate = `${d.getMonth() + 1}.${d.getDate()}.${d.getFullYear()}`;
 // button.addEventListener("click", runApp);
 
 function runApp() {
-    getData(`${url}${zip.value}&appid=${apiKey}`).then(function (data) {
-        postData("/addWeather", { temp: data.main.temp, date: newDate, city: data.name, sky: data.weather[0].description, icon: data.weather[0].icon, response: feeling.value });
-        console.log(data);
-        updateUI();
-    });
+    // getData(`${url}${zip.value}&appid=${apiKey}`).then(function (data) {
+        
+    //     console.log(data);
+    //     updateUI();
+    // });
+    postData("/addWeather", {  zipCode: zip.value , response: feeling.value });
+    // updateUI();
 } //runApp end
 
 //Fetch api and return the response in json format
-const getData = async (api) => {
-    const response = await fetch(api);
-    try {
-        const data = await response.json();
-        //  Zip code validation
-        if (response.status !== 200) {
-            alert("Please enter a valid zip code");
-        }
-        return data;
-    } catch (error) {
-        console.log("error", error);
-    }
-};
+// const getData = async (api) => {
+//     const response = await fetch(api);
+//     try {
+//         const data = await response.json();
+//         //  Zip code validation
+//         if (response.status !== 200) {
+//             alert("Please enter a valid zip code");
+//         }
+//         return data;
+//     } catch (error) {
+//         console.log("error", error);
+//     }
+// };
 
 // Post the data to the local server
 const postData = async (path = "", data = {}) => {
@@ -57,19 +59,19 @@ const postData = async (path = "", data = {}) => {
 }; //postData end
 
 // Update UI dynamically
-const updateUI = async () => {
-    const request = await fetch("/all");
-    try {
-        const allData = await request.json();
-        const iconAddress = `http://openweathermap.org/img/wn/${allData.icon}@2x.png`;
+// const updateUI = async () => {
+//     const request = await fetch("/all");
+//     try {
+//         const allData = await request.json();
+//         const iconAddress = `http://openweathermap.org/img/wn/${allData.icon}@2x.png`;
 
-        document.querySelector(".new").classList.add("post-color");
-        document.querySelector("#date").innerHTML = `<h5>Today:</h5><p class='lg-print'>${allData.date}</p>`;
-        document.querySelector("#temp").innerHTML = `<h5>The weather in ${allData.city}:</h5><img src=${iconAddress}><p class='lg-print'>${allData.temperature}° with ${allData.sky}</p>`;
-        document.querySelector("#user-response").innerHTML = `<h5>The plan is:</h5><p class='sm-print'>${allData.response}</p>`;
-    } catch (error) {
-        console.log("error", error);
-    }
-};
+//         document.querySelector(".new").classList.add("post-color");
+//         document.querySelector("#date").innerHTML = `<h5>Today:</h5><p class='lg-print'>${allData.date}</p>`;
+//         document.querySelector("#temp").innerHTML = `<h5>The weather in ${allData.city}:</h5><img src=${iconAddress}><p class='lg-print'>${allData.temperature}° with ${allData.sky}</p>`;
+//         document.querySelector("#user-response").innerHTML = `<h5>The plan is:</h5><p class='sm-print'>${allData.response}</p>`;
+//     } catch (error) {
+//         console.log("error", error);
+//     }
+// };
 
-export { runApp, getData, postData, updateUI}
+export { runApp, postData }
