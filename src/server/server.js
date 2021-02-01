@@ -49,9 +49,7 @@ app.get("/all", (req, res) => {
 //     console.log(projectData);
 // }
 
-app.listen(port, () => {
-    console.log(`server is running on port ${port}`);
-});
+
 
 
 
@@ -60,7 +58,7 @@ app.post('/addWeather', async (req, res) => {
     let zip = req.body.zipCode;
     let userResponse = req.body.response;
     console.log(`This is user's input: Zip:${zip} Response:${userResponse}`);
-    const response = await fetch(`${apiBase}${zip}&appid=${apiKey}`);
+    const response = await fetch(`${apiBase}${zip}&appid=${apiKey}&units=imperial`);
     try {
         //get the response convert to json
         const data = await response.json();
@@ -70,4 +68,8 @@ app.post('/addWeather', async (req, res) => {
     } catch (error) {
         console.log("error", error);
     }
-})
+});
+
+app.listen(port, () => {
+    console.log(`server is running on port ${port}`);
+});

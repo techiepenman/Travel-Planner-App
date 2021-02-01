@@ -50,28 +50,29 @@ const postData = async (path = "", data = {}) => {
         body: JSON.stringify(data),
     });
     try {
-        const newData = await response.json();
-        console.log(newData);
-        return newData;
-    } catch (error) {
-        console.log("error", error);
-    }
-}; //postData end
-
-// Update UI dynamically
-// const updateUI = async () => {
-//     const request = await fetch("/all");
-//     try {
-//         const allData = await request.json();
-//         const iconAddress = `http://openweathermap.org/img/wn/${allData.icon}@2x.png`;
-
-//         document.querySelector(".new").classList.add("post-color");
-//         document.querySelector("#date").innerHTML = `<h5>Today:</h5><p class='lg-print'>${allData.date}</p>`;
-//         document.querySelector("#temp").innerHTML = `<h5>The weather in ${allData.city}:</h5><img src=${iconAddress}><p class='lg-print'>${allData.temperature}° with ${allData.sky}</p>`;
-//         document.querySelector("#user-response").innerHTML = `<h5>The plan is:</h5><p class='sm-print'>${allData.response}</p>`;
+        // const newData = await response.json();
+//         console.log(newData);
+//         return newData;
 //     } catch (error) {
 //         console.log("error", error);
 //     }
-// };
+// }; //postData end
+
+// // Update UI dynamically
+// const updateUI = async () => {
+//     const request = await fetch("/all");
+//     try {
+        const allData = await response.json();
+        console.log(allData);
+        const iconAddress = `http://openweathermap.org/img/wn/${allData.weather[0].icon}@2x.png`;
+
+        document.querySelector(".new").classList.add("post-color");
+        document.querySelector("#date").innerHTML = `<h5>Today:</h5><p class='lg-print'>${newDate}</p>`;
+        document.querySelector("#temp").innerHTML = `<h5>The weather in ${allData.name}:</h5><img src=${iconAddress}><p class='lg-print'>${allData.main.temp}° with ${allData.weather[0].description}</p>`;
+        document.querySelector("#user-response").innerHTML = `<h5>The plan is:</h5><p class='sm-print'>${feeling.value}</p>`;
+    } catch (error) {
+        console.log("error", error);
+    }
+};
 
 export { runApp, postData }
