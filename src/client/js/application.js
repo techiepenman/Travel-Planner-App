@@ -3,8 +3,8 @@
 // const button = document.querySelector('#generate');
 const feeling = document.getElementById('feelings');
 const zip = document.querySelector('#zip');
-const apiKey = '';
-const url = 'https://api.openweathermap.org/data/2.5/weather?zip=';
+const url = 'http://localhost:3001/addWeather';
+
 
 // Create a new date instance dynamically with JS
 let d = new Date();
@@ -20,7 +20,7 @@ function runApp() {
     //     console.log(data);
     //     updateUI();
     // });
-    postData("/addWeather", {  zipCode: zip.value , response: feeling.value });
+    postData(url, {  zipCode: zip.value , response: feeling.value });
     // updateUI();
 } //runApp end
 
