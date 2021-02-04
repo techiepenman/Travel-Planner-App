@@ -1,10 +1,10 @@
 /* Global Variables */
 
 // const button = document.querySelector('#generate');
-const feeling = document.getElementById('feelings');
-const zip = document.querySelector('#zip');
+const departure = document.getElementById('departure');
+const returnDate = document.getElementById('return');
+const city = document.querySelector('#city');
 const url = 'http://localhost:3001/addWeather';
-
 
 // Create a new date instance dynamically with JS
 let d = new Date();
@@ -20,7 +20,7 @@ function runApp() {
     //     console.log(data);
     //     updateUI();
     // });
-    postData(url, {  zipCode: zip.value , response: feeling.value });
+    postData(url, {  city: city.value , departure: departure.value , return: returnDate.value  });
     // updateUI();
 } //runApp end
 
@@ -64,12 +64,14 @@ const postData = async (path = "", data = {}) => {
 //     try {
         const allData = await response.json();
         console.log(allData);
-        const iconAddress = `http://openweathermap.org/img/wn/${allData.weather[0].icon}@2x.png`;
+        // const iconAddress = `http://openweathermap.org/img/wn/${allData.weather[0].icon}@2x.png`;
 
         document.querySelector(".new").classList.add("post-color");
         document.querySelector("#date").innerHTML = `<h5>Today:</h5><p class='lg-print'>${newDate}</p>`;
-        document.querySelector("#temp").innerHTML = `<h5>The weather in ${allData.name}:</h5><img src=${iconAddress}><p class='lg-print'>${allData.main.temp}° with ${allData.weather[0].description}</p>`;
-        document.querySelector("#user-response").innerHTML = `<h5>The plan is:</h5><p class='sm-print'>${feeling.value}</p>`;
+        document.querySelector("#temp").innerHTML = `<h5>The Latitude in ${allData.geonames[0].name}:<p class='lg-print'>${allData.geonames[0].lat}° and the Longitude is ${allData.geonames[0].lng}</p>`;
+        document.querySelector("#user-response").innerHTML = `<h5>Destination:</h5><p class='sm-print'>${city.value}</p>
+                                                            <h5>Departure Date:</h5><p class='sm-print'>${departure.value}</p>
+                                                            <h5>Return Date:</h5><p class='sm-print'>${returnDate.value}</p>`;
     } catch (error) {
         console.log("error", error);
     }

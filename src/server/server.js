@@ -1,7 +1,9 @@
 const dotenv = require('dotenv');
 dotenv.config();
-const apiBase = 'https://api.openweathermap.org/data/2.5/weather?zip=';
-const apiKey = process.env.API_KEY;
+// const apiBase = 'https://api.openweathermap.org/data/2.5/weather?zip=';
+const apiBase = 'http://api.geonames.org/searchJSON?q='
+// const apiKey = process.env.API_KEY;
+const userName = process.env.USER_NAME;
 // Setup empty JS object to act as endpoint for all routes
 projectData = {};
 
@@ -55,10 +57,13 @@ app.get("/all", (req, res) => {
 
 /////////////////
 app.post('/addWeather', async (req, res) => {
-    let zip = req.body.zipCode;
-    let userResponse = req.body.response;
-    console.log(`This is user's input: Zip:${zip} Response:${userResponse}`);
-    const response = await fetch(`${apiBase}${zip}&appid=${apiKey}&units=imperial`);
+    let city = req.body.city;
+    let departure = req.body.departure;
+    let returnDate = req.body.return;
+    console.log(`This is user's input: City: ${city} Departure Date: ${departure} Return Date: ${returnDate}`);
+    console.log(`${apiBase}${city}&maxRows=1&username=${userName}`);
+    const response = await fetch(`${apiBase}${city}&maxRows=1&username=${userName}`);
+    // (`${apiBase}${zip}&appid=${apiKey}&units=imperial`);
     try {
         //get the response convert to json
         const data = await response.json();

@@ -37,12 +37,19 @@
 
             <section id="form" class="card">
                 <div class="mb-3 entryHolder">
-                    <label for="zip" class="form-label">Enter Zipcode to check the weather</label>
-                    <input type="text" class="form-control form-control-lg" id="zip" placeholder="enter zip code here" />
+                    <label for="city" class="form-label">Destination City</label>
+                    <input type="text" class="form-control form-control-lg" id="city" placeholder="destination city" />
                 </div>
                 <div class="mb-3 entryHolder">
-                    <label class="form-label" for="feelings">Any fun plans for today?</label>
-                    <textarea rows="5" cols="40" maxlength="300" id="feelings" class="form-control" placeholder="Enter your feelings here"></textarea>
+                    <label class="form-label" for="departure">Departure Date</label>
+                    <input type="date" class="form-control form-control-lg" id="departure" placeholder="MM-DD-YYYY" />
+
+                    <div class="mb-3 entryHolder">
+                        <label class="form-label" for="return">Return Date</label>
+                        <input type="date" class="form-control form-control-lg" id="return" placeholder="MM-DD-YYYY" />
+                    
+                    
+                    <!-- <textarea rows="5" cols="40" maxlength="300" id="feelings" class="form-control" placeholder="Enter your feelings here"></textarea> -->
                     <button class="entryHolder" id="generate" type="submit">Go!</button>
                 </div>
             </section>
