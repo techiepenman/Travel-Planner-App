@@ -1,7 +1,10 @@
 const dotenv = require('dotenv');
 dotenv.config();
 // const apiBase = 'https://api.openweathermap.org/data/2.5/weather?zip=';
-const apiBase = 'http://api.geonames.org/searchJSON?q='
+const apiBase = 'http://api.geonames.org/searchJSON?q=';
+const wbitFcstUrl = 'https://api.weatherbit.io/v2.0/forecast/daily?';
+const wbitCrntUrl = 'https://api.weatherbit.io/v2.0/current?'
+const wbitKey = process.env.KEY_WEATHERBIT;
 // const apiKey = process.env.API_KEY;
 const userName = process.env.USER_NAME;
 // Setup empty JS object to act as endpoint for all routes
@@ -67,9 +70,23 @@ app.post('/addWeather', async (req, res) => {
     try {
         //get the response convert to json
         const data = await response.json();
-        res.send(data); //send data to server
+        newData = {
+            lat: data.geonames[0].lat,
+            lon: data.geonames[0].lng,
+            
+        };
+        projectData = newData;
+        // res.send(data); //send data to server
         console.log(res.status);
         console.log(data);
+    } catch (error) {
+        console.log("error", error);
+    }
+    try {
+        const weatherBitData =  await fetch(`${wbitCrntUrl}lat=${projectData.lat}&lon=${projectData.lon}&key=${wbitKey}&units=I`);
+        const data = await weatherBitData.json();
+
+        res.send(data);
     } catch (error) {
         console.log("error", error);
     }
