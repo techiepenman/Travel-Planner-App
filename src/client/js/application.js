@@ -68,10 +68,11 @@ const postData = async (path = "", data = {}) => {
 
         document.querySelector(".new").classList.add("post-color");
         document.querySelector("#date").innerHTML = `<h5>Today:</h5><p class='lg-print'>${newDate}</p>`;
-        document.querySelector("#temp").innerHTML = `<h5>Current temperature in ${allData.data[0].city_name}:</h5> <p class='sm-print'>${allData.data[0].temp} with ${allData.data[0].weather.description}</p>`;
+        document.querySelector("#temp").innerHTML = `<h5>Current temperature in ${allData.weatherbit.data[0].city_name}:</h5> <p class='sm-print'>${allData.weatherbit.data[0].temp} with ${allData.weatherbit.data[0].weather.description}</p>`;
         document.querySelector("#user-response").innerHTML = `<h5>Destination:</h5><p class='sm-print'>${city.value}</p>
                                                             <h5>Departure Date:</h5><p class='sm-print'>${departure.value}</p>
                                                             <h5>Return Date:</h5><p class='sm-print'>${returnDate.value}</p>`;
+        document.querySelector('#image').innerHTML = `<img class='preview' src=${allData.pixabay.hits[1].webformatURL}>`;                                                    
     } catch (error) {
         console.log("error", error);
     }

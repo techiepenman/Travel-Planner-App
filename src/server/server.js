@@ -3,10 +3,13 @@ dotenv.config();
 // const apiBase = 'https://api.openweathermap.org/data/2.5/weather?zip=';
 const apiBase = 'http://api.geonames.org/searchJSON?q=';
 const wbitFcstUrl = 'https://api.weatherbit.io/v2.0/forecast/daily?';
-const wbitCrntUrl = 'https://api.weatherbit.io/v2.0/current?'
+const wbitCrntUrl = 'https://api.weatherbit.io/v2.0/current?';
+const pixaUrl = 'https://pixabay.com/api/?key='
 const wbitKey = process.env.KEY_WEATHERBIT;
 // const apiKey = process.env.API_KEY;
 const userName = process.env.USER_NAME;
+const pixaKey = process.env.KEY_PIXABAY;
+
 // Setup empty JS object to act as endpoint for all routes
 projectData = {};
 
@@ -80,15 +83,32 @@ app.post('/addWeather', async (req, res) => {
         console.log(res.status);
         console.log(data);
     } catch (error) {
-        console.log("error", error);
+        console.log("There's a problem getting info from Geonames", error);
     }
     try {
         const weatherBitData =  await fetch(`${wbitCrntUrl}lat=${projectData.lat}&lon=${projectData.lon}&key=${wbitKey}&units=I`);
         const data = await weatherBitData.json();
-
-        res.send(data);
+        // newData = {
+        //     weatherbit : data
+        // };
+        projectData.weatherbit = data;
+        console.log(data);
+        // res.send(data);
     } catch (error) {
-        console.log("error", error);
+        console.log("There's a problem getting info from Weatherbit", error);
+    }
+    try {
+        const pixaData =  await fetch(`${pixaUrl}${pixaKey}&q=${city}&image_type=photo`);
+        const img = await pixaData.json();
+        //  newData = {
+        //      pixaData : img,
+             
+        //  };
+         projectData.pixabay = img;
+        res.send(projectData);
+        // console.log(img);
+    } catch (error) {
+        console.log("There's a problem getting info from Pixabay", error)
     }
 });
 
