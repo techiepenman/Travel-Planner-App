@@ -2,8 +2,8 @@ const dotenv = require('dotenv');
 dotenv.config();
 // const apiBase = 'https://api.openweathermap.org/data/2.5/weather?zip=';
 const apiBase = 'http://api.geonames.org/searchJSON?q=';
-const wbitFcstUrl = 'https://api.weatherbit.io/v2.0/forecast/daily?';
-const wbitCrntUrl = 'https://api.weatherbit.io/v2.0/current?';
+// const wbitFcstUrl = 'https://api.weatherbit.io/v2.0/forecast/daily?';
+let wbitCrntUrl = 'https://api.weatherbit.io/v2.0/';
 const pixaUrl = 'https://pixabay.com/api/?key='
 const wbitKey = process.env.KEY_WEATHERBIT;
 // const apiKey = process.env.API_KEY;
@@ -19,7 +19,7 @@ const express = require("express");
 
 // Start up an instance of app
 const app = express();
-const port = 3001;
+const port = 3000;
 
 // Cors for cross origin allowance
 const cors = require("cors");
@@ -64,9 +64,12 @@ app.get("/all", (req, res) => {
 /////////////////
 app.post('/addWeather', async (req, res) => {
     let city = req.body.city;
-    let departure = req.body.departure;
-    let returnDate = req.body.return;
-    console.log(`This is user's input: City: ${city} Departure Date: ${departure} Return Date: ${returnDate}`);
+    let departure = new Date(req.body.departure);
+    let returnDate = new Date(req.body.return);
+    let days = Math.abs(returnDate - departure);
+    totalDays = days/(1000 * 3600 * 24);
+    
+    console.log(`wbitapi: ${wbitCrntUrl} This is user's input: City: ${city} Departure Date: ${departure} Return Date: ${returnDate} Total: ${totalDays}`);
     console.log(`${apiBase}${city}&maxRows=1&username=${userName}`);
     const response = await fetch(`${apiBase}${city}&maxRows=1&username=${userName}`);
     // (`${apiBase}${zip}&appid=${apiKey}&units=imperial`);
@@ -74,25 +77,44 @@ app.post('/addWeather', async (req, res) => {
         //get the response convert to json
         const data = await response.json();
         newData = {
+            destination : city,
+            howLong : totalDays,
             lat: data.geonames[0].lat,
             lon: data.geonames[0].lng,
+            cityName : data.geonames[0].toponymName,
+            country : data.geonames[0].countryName
             
         };
         projectData = newData;
         // res.send(data); //send data to server
-        console.log(res.status);
+        // console.log(res.status);
         console.log(data);
     } catch (error) {
         console.log("There's a problem getting info from Geonames", error);
     }
     try {
+        let wbitCrntUrl;
+        //Change weatherbit Api endpoint based on the number of trip days 
+        if (totalDays < 2) {
+            wbitCrntUrl = 'https://api.weatherbit.io/v2.0/current?';
+        } else {
+            wbitCrntUrl = 'https://api.weatherbit.io/v2.0/forecast/daily?';
+        };
+        
         const weatherBitData =  await fetch(`${wbitCrntUrl}lat=${projectData.lat}&lon=${projectData.lon}&key=${wbitKey}&units=I`);
         const data = await weatherBitData.json();
+        projectData.weatherbit = data;
+    // } else {
+        //     const weatherBitData =  await fetch(`${wbitFcstUrl}lat=${projectData.lat}&lon=${projectData.lon}&key=${wbitKey}&units=I`);
+        //     const data = await weatherBitData.json();
+        //     projectData.weatherbit = data;
+        // };
+        
         // newData = {
         //     weatherbit : data
         // };
-        projectData.weatherbit = data;
-        console.log(data);
+        // projectData.weatherbit = data;
+        console.log(projectData);
         // res.send(data);
     } catch (error) {
         console.log("There's a problem getting info from Weatherbit", error);

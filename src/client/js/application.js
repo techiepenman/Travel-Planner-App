@@ -1,10 +1,10 @@
 /* Global Variables */
 
-// const button = document.querySelector('#generate');
+const button = document.querySelector('#generate');
 const departure = document.getElementById('departure');
 const returnDate = document.getElementById('return');
 const city = document.querySelector('#city');
-const url = 'http://localhost:3001/addWeather';
+const url = 'http://localhost:3000/addWeather';
 
 // Create a new date instance dynamically with JS
 let d = new Date();
@@ -12,7 +12,7 @@ let newDate = `${d.getMonth() + 1}.${d.getDate()}.${d.getFullYear()}`;
 
 // Listen for a click on generate button to start the app
 
-// button.addEventListener("click", runApp);
+button.addEventListener("click", runApp);
 
 function runApp() {
     // getData(`${url}${zip.value}&appid=${apiKey}`).then(function (data) {
@@ -68,7 +68,7 @@ const postData = async (path = "", data = {}) => {
 
         document.querySelector(".new").classList.add("post-color");
         document.querySelector("#date").innerHTML = `<h5>Today:</h5><p class='lg-print'>${newDate}</p>`;
-        document.querySelector("#temp").innerHTML = `<h5>Current temperature in ${allData.weatherbit.data[0].city_name}:</h5> <p class='sm-print'>${allData.weatherbit.data[0].temp} with ${allData.weatherbit.data[0].weather.description}</p>`;
+        document.querySelector("#temp").innerHTML = `<h5>Current temperature in ${allData.cityName}, ${allData.country}:</h5> <p class='sm-print'>${allData.weatherbit.data[0].temp} with ${allData.weatherbit.data[0].weather.description}</p>`;
         document.querySelector("#user-response").innerHTML = `<h5>Destination:</h5><p class='sm-print'>${city.value}</p>
                                                             <h5>Departure Date:</h5><p class='sm-print'>${departure.value}</p>
                                                             <h5>Return Date:</h5><p class='sm-print'>${returnDate.value}</p>`;
