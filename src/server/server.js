@@ -43,34 +43,17 @@ app.get("/all", (req, res) => {
     res.send(projectData);
 });
 
-// POST route receives data from the app and adds it to the projectData object
-// app.post("/addWeather", addWeather);
 
-// function addWeather(req, res) {
-//     newData = {
-//         zip: req.body.zipCode,
-
-//         response: req.body.response,
-//     };
-//     projectData = newData;
-//     res.send(projectData);
-//     console.log(projectData);
-// }
-
-
-
-
-
-/////////////////
 app.post('/addWeather', async (req, res) => {
     let city = req.body.city;
-    let departure = new Date(req.body.departure);
+    let today = new Date().getTime();
+    let departure = new Date(req.body.departure).getTime();
     let returnDate = new Date(req.body.return);
-    let days = Math.abs(returnDate - departure);
-    totalDays = days/(1000 * 3600 * 24);
+    let days = (departure - today);
+    totalDays = Math.ceil(days/(1000 * 3600 * 24));
     
-    console.log(`wbitapi: ${wbitCrntUrl} This is user's input: City: ${city} Departure Date: ${departure} Return Date: ${returnDate} Total: ${totalDays}`);
-    console.log(`${apiBase}${city}&maxRows=1&username=${userName}`);
+    // console.log(`wbitapi: ${wbitCrntUrl} This is user's input: City: ${city} Departure Date: ${departure} Return Date: ${returnDate} Total: ${totalDays}`);
+    // console.log(`${apiBase}${city}&maxRows=1&username=${userName}`);
     const response = await fetch(`${apiBase}${city}&maxRows=1&username=${userName}`);
     // (`${apiBase}${zip}&appid=${apiKey}&units=imperial`);
     try {
@@ -78,7 +61,8 @@ app.post('/addWeather', async (req, res) => {
         const data = await response.json();
         newData = {
             destination : city,
-            howLong : totalDays,
+            todayDate: today,
+            daysLeft : totalDays,
             lat: data.geonames[0].lat,
             lon: data.geonames[0].lng,
             cityName : data.geonames[0].toponymName,
@@ -95,25 +79,16 @@ app.post('/addWeather', async (req, res) => {
     try {
         let wbitCrntUrl;
         //Change weatherbit Api endpoint based on the number of trip days 
-        if (totalDays < 2) {
+        if (totalDays > 0 && totalDays < 7) {
             wbitCrntUrl = 'https://api.weatherbit.io/v2.0/current?';
         } else {
             wbitCrntUrl = 'https://api.weatherbit.io/v2.0/forecast/daily?';
         };
-        
+        console.log(wbitCrntUrl);
         const weatherBitData =  await fetch(`${wbitCrntUrl}lat=${projectData.lat}&lon=${projectData.lon}&key=${wbitKey}&units=I`);
         const data = await weatherBitData.json();
         projectData.weatherbit = data;
-    // } else {
-        //     const weatherBitData =  await fetch(`${wbitFcstUrl}lat=${projectData.lat}&lon=${projectData.lon}&key=${wbitKey}&units=I`);
-        //     const data = await weatherBitData.json();
-        //     projectData.weatherbit = data;
-        // };
-        
-        // newData = {
-        //     weatherbit : data
-        // };
-        // projectData.weatherbit = data;
+    
         console.log(projectData);
         // res.send(data);
     } catch (error) {
@@ -122,10 +97,7 @@ app.post('/addWeather', async (req, res) => {
     try {
         const pixaData =  await fetch(`${pixaUrl}${pixaKey}&q=${city}&image_type=photo`);
         const img = await pixaData.json();
-        //  newData = {
-        //      pixaData : img,
-             
-        //  };
+      
          projectData.pixabay = img;
         res.send(projectData);
         // console.log(img);

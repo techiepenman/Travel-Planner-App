@@ -1,5 +1,5 @@
 // import { handleSubmit } from './js/application'
-import { checkDate } from './js/dateChecker'
+import { checkCity } from './js/dateChecker'
 import { runApp } from './js/application'
 // import { getData } from './js/application'
 import { postData } from './js/application'
@@ -13,7 +13,7 @@ import './styles/med-view.scss'
 import './styles/lg-view.scss'
 
 export {
-    checkDate,
+    checkCity,
     // handleSubmit,
     runApp,
     // getData,

@@ -1,5 +1,6 @@
-function checkDate () {
-    console.log("I'm a test function");
-}
+const checkCity = (input) =>{
+    var checkInput = /^[a-zA-Z]+ ?[a-zA-Z]*? ?[a-zA-Z]*?$/.test(input);
+    return checkInput;
+};
 
-export { checkDate }
+export { checkCity }
