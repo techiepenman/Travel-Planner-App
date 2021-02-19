@@ -16,12 +16,8 @@ let newDate = `${d.getMonth() + 1}.${d.getDate()}.${d.getFullYear()}`;
 
 function runApp() {
     
-    // const inputValidation = Client.checkCity(input);
-    // if (inputValidation) {
     postData(url, {  city: city.value , departure: departure.value , return: returnDate.value  });
-// } else {
-//     alert('oops');
-// };
+
     // updateUI();
 } //runApp end
 
@@ -65,11 +61,11 @@ const postData = async (path = "", data = {}) => {
 //     try {
         const allData = await response.json();
         console.log(allData);
-        const iconAddress = `/media/icons/`;
+        const iconAddress = `/images`;
 
         document.querySelector(".new").classList.add("post-color");
         document.querySelector("#date").innerHTML = `<h5>Today:</h5><p class='lg-print'>${newDate}</p>`;
-        document.querySelector("#temp").innerHTML = `<h5>Current temperature in ${allData.cityName}, ${allData.country}:</h5> <p class='sm-print'>${allData.weatherbit.data[0].temp}° F with ${allData.weatherbit.data[0].weather.description}</p>`;
+        document.querySelector("#temp").innerHTML = `<h5>Current temperature in ${allData.cityName}, ${allData.country}:</h5> <p class='sm-print'>${allData.weatherbit.data[0].temp}° F with ${allData.weatherbit.data[0].weather.description} <img src='images/${allData.weatherbit.data[0].weather.icon}.png'></p>`;
         document.querySelector("#user-response").innerHTML = `<h5>Days left to trip:</h5><p class='sm-print'>${allData.daysLeft}</p>
                                                             <h5>Departure Date:</h5><p class='sm-print'>${departure.value}</p>
                                                             <h5>Return Date:</h5><p class='sm-print'>${returnDate.value}</p>`;

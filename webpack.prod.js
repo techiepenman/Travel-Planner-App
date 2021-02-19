@@ -5,6 +5,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 const WorkboxPlugin = require('workbox-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 module.exports = {
     entry: './src/client/index.js',
     mode: 'production',
@@ -38,6 +39,11 @@ plugins: [
         template: "./src/client/views/index.html",
         filename: "./index.html",
     }),
+    new CopyWebpackPlugin({
+        patterns:[
+        { from:'./src/client/media/', to:'images'} 
+    ],
+}),
     new MiniCssExtractPlugin({ filename: "[name].css" }),
     new WorkboxPlugin.GenerateSW()
 ]

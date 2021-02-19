@@ -1,5 +1,5 @@
 // import { handleSubmit } from './js/application'
-import { checkCity } from './js/dateChecker'
+import { checkCity } from './js/dateChecker.js'
 import { runApp } from './js/application'
 // import { getData } from './js/application'
 import { postData } from './js/application'
@@ -22,4 +22,7 @@ export {
    }
 
    const button = document.querySelector('#generate');
+   const input = document.querySelector('#city').value;
+
    button.addEventListener("click", runApp);
+   
