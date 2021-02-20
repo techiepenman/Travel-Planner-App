@@ -22,7 +22,5 @@ export {
    }
 
    const button = document.querySelector('#generate');
-   const input = document.querySelector('#city').value;
-
    button.addEventListener("click", runApp);
    

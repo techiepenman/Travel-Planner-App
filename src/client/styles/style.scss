@@ -2,9 +2,24 @@
 @import "lg-view.scss";
 
 body {
-    background: #fffff8;
+  
     font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+  
 }
+
+//Code snippet for background image from 
+body::after {
+    content: "";
+    background: url("../media/travel-4969279_1920.jpg");
+    background-repeat:no-repeat;
+    opacity: 0.6;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    position: absolute;
+    z-index: -1;   
+  }
 
 /* @media (min-width: 1101px) { */
 #container {
@@ -44,7 +59,7 @@ body {
     /* height: 20vh; */
     padding: 50px;
     /* margin: auto; */
-    background-color: #36befd;
+    // background-color: #36befd;
     grid-area: hd;
     font-family: "Inter", sans-serif;
     font-size: 2rem;

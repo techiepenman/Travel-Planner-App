@@ -11,7 +11,9 @@ module.exports = {
     mode: 'production',
     output: {
         libraryTarget: 'var',
-        library: 'Client'
+        library: 'Client',
+        publicPath: './'
+
     },
     
     module: {

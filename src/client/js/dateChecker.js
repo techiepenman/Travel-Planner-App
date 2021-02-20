@@ -1,9 +1,8 @@
-const checkCity = (input) =>{
-    var checkInput = input.match(/^[a-zA-Z]+ ?[a-zA-Z]*? ?[a-zA-Z]*?$/);
-    if(checkInput == null)
-    return false;
-else
-    return true;
+// const input = document.querySelector('#city').value;
+const checkCity = (city) => {
+    
+    var checkInput =/^[a-zA-Z]+ ?[a-zA-Z]*? ?[a-zA-Z]*?$/.test(city);
+    return checkInput;
 
     
 };

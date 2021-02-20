@@ -1,9 +1,6 @@
 const dotenv = require('dotenv');
 dotenv.config();
-// const apiBase = 'https://api.openweathermap.org/data/2.5/weather?zip=';
-const apiBase = 'http://api.geonames.org/searchJSON?q=';
-// const wbitFcstUrl = 'https://api.weatherbit.io/v2.0/forecast/daily?';
-let wbitCrntUrl = 'https://api.weatherbit.io/v2.0/';
+const geoUrl = 'http://api.geonames.org/searchJSON?q=';
 const pixaUrl = 'https://pixabay.com/api/?key='
 const wbitKey = process.env.KEY_WEATHERBIT;
 // const apiKey = process.env.API_KEY;
@@ -43,26 +40,28 @@ app.get("/all", (req, res) => {
     res.send(projectData);
 });
 
-
+//Get the data from client 
 app.post('/addWeather', async (req, res) => {
     let city = req.body.city;
     let today = new Date().getTime();
     let departure = new Date(req.body.departure).getTime();
-    let returnDate = new Date(req.body.return);
+    let returnDate = new Date(req.body.return).getTime();
     let days = (departure - today);
+    let howLong = (returnDate - departure);
     totalDays = Math.ceil(days/(1000 * 3600 * 24));
+    duration = Math.ceil(howLong/(1000 * 3600 * 24));
+
+    // Pass the city to geonames to retrieve latitude and longitude    
+    const response = await fetch(`${geoUrl}${city}&maxRows=1&username=${userName}`);
     
-    // console.log(`wbitapi: ${wbitCrntUrl} This is user's input: City: ${city} Departure Date: ${departure} Return Date: ${returnDate} Total: ${totalDays}`);
-    // console.log(`${apiBase}${city}&maxRows=1&username=${userName}`);
-    const response = await fetch(`${apiBase}${city}&maxRows=1&username=${userName}`);
-    // (`${apiBase}${zip}&appid=${apiKey}&units=imperial`);
     try {
-        //get the response convert to json
+        //get the response convert to json, add new data to projectData object
         const data = await response.json();
         newData = {
             destination : city,
             todayDate: today,
             daysLeft : totalDays,
+            duration : duration,
             lat: data.geonames[0].lat,
             lon: data.geonames[0].lng,
             cityName : data.geonames[0].toponymName,
@@ -70,37 +69,39 @@ app.post('/addWeather', async (req, res) => {
             
         };
         projectData = newData;
-        // res.send(data); //send data to server
-        // console.log(res.status);
+       
         console.log(data);
     } catch (error) {
         console.log("There's a problem getting info from Geonames", error);
-    }
-    try {
-        let wbitCrntUrl;
-        //Change weatherbit Api endpoint based on the number of trip days 
-        if (totalDays > 0 && totalDays < 7) {
-            wbitCrntUrl = 'https://api.weatherbit.io/v2.0/current?';
-        } else {
-            wbitCrntUrl = 'https://api.weatherbit.io/v2.0/forecast/daily?';
-        };
-        console.log(wbitCrntUrl);
-        const weatherBitData =  await fetch(`${wbitCrntUrl}lat=${projectData.lat}&lon=${projectData.lon}&key=${wbitKey}&units=I`);
-        const data = await weatherBitData.json();
-        projectData.weatherbit = data;
+    };
     
+    try {
+        let wbitUrl;
+        //Change Weatherbit Api endpoint based on the number of days until trip to get current or forecast weather
+        if (totalDays > 0 && totalDays < 7) {
+            wbitUrl = 'https://api.weatherbit.io/v2.0/current?';
+        } else {
+            wbitUrl = 'https://api.weatherbit.io/v2.0/forecast/daily?';
+        };
+        console.log(wbitUrl);
+        //Pass lon and lat to Weatherbit, get the weather info and add to projectData
+        const weatherBitData =  await fetch(`${wbitUrl}lat=${projectData.lat}&lon=${projectData.lon}&key=${wbitKey}&units=I`);
+        const weather = await weatherBitData.json();
+        projectData.weatherbit = weather;
         console.log(projectData);
-        // res.send(data);
+        
     } catch (error) {
         console.log("There's a problem getting info from Weatherbit", error);
-    }
+    };
+    //Get picture from Pixabay and add to projectData
     try {
         const pixaData =  await fetch(`${pixaUrl}${pixaKey}&q=${city}&image_type=photo`);
         const img = await pixaData.json();
       
          projectData.pixabay = img;
+    //Send projectData object as response      
         res.send(projectData);
-        // console.log(img);
+      
     } catch (error) {
         console.log("There's a problem getting info from Pixabay", error)
     }
