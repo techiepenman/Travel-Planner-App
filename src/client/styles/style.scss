@@ -151,4 +151,31 @@ button:focus {
 }
 .preview {
     border-radius: 20px;
+    width:100%;
+    height: auto;
 }
+//new
+.forecast {
+    
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        padding: 2.5em;
+        background-color: #fff;
+        border-radius: 2px;
+        // -webkit-transition: box-shadow .3s ease;
+        transition: box-shadow .3s ease;
+        border: 2px solid blue;
+      
+}
+
+// .daily-details{
+	
+// 	position: absolute;
+// 	width: 50px;
+// 	height: 50px;
+//     border: 2px solid red;
+	
+// 	border-radius: 50%;
+// }

@@ -87,7 +87,7 @@ app.post('/addWeather', async (req, res) => {
         //Pass lon and lat to Weatherbit, get the weather info and add to projectData
         const weatherBitData =  await fetch(`${wbitUrl}lat=${projectData.lat}&lon=${projectData.lon}&key=${wbitKey}&units=I`);
         const weather = await weatherBitData.json();
-        projectData.weatherbit = weather;
+        projectData.weather = weather;
         console.log(projectData);
         
     } catch (error) {

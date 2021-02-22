@@ -1,11 +1,16 @@
 /* Global Variables */
 import { checkCity } from './dateChecker';
+import { showForcast , removeForecast } from './forecast';
 const button = document.querySelector('#generate');
 const departure = document.getElementById('departure');
 const returnDate = document.getElementById('return');
 const city = document.querySelector('#city');
 const url = 'http://localhost:3000/addWeather';
 const responseDiv = document.querySelector('#post');
+const showData = document.getElementById('showData');
+let ul = document.createElement('ul');
+ul.id = 'showForecast';
+showData.appendChild(ul);
 responseDiv.style.display = 'none';
 // Create a new date instance dynamically with JS
 let d = new Date();
@@ -63,22 +68,31 @@ const postData = async (path = "", data = {}) => {
 //     try {
         const allData = await response.json();
         console.log(allData);
-        const iconAddress = `/images`;
-
+        
+        
+        if (allData.daysLeft > 7) {
+         if (ul.firstChild) {
+            removeForecast(ul);
+         }
+            showForcast(allData);
+                
+        } else {
+        removeForecast(ul);
+        
+         };
         document.querySelector(".new").classList.add("post-color");
         document.querySelector("#date").innerHTML = `<h5>Today:</h5><p class='lg-print'>${newDate}</p>`;
-        document.querySelector("#temp").innerHTML = `<h5>Current temperature in ${allData.cityName}, ${allData.country}:</h5> <p class='sm-print'>${allData.weatherbit.data[0].temp}° F with ${allData.weatherbit.data[0].weather.description} <img src='images/${allData.weatherbit.data[0].weather.icon}.png'></p>`;
+        document.querySelector("#temp").innerHTML = `<h5>Current temperature in ${allData.cityName}, ${allData.country}:</h5> <p class='sm-print'>${allData.weather.data[0].temp}° F with ${allData.weather.data[0].weather.description} <img src='images/${allData.weather.data[0].weather.icon}.png'></p>`;
         document.querySelector("#user-response").innerHTML = `<h5>Days left to trip:</h5><p class='sm-print'>${allData.daysLeft}</p>
         <h5>Trip duration:</h5><p class='sm-print'>${allData.duration}</p>
         <h5>Departure Date:</h5><p class='sm-print'>${departure.value}</p>
         <h5>Return Date:</h5><p class='sm-print'>${returnDate.value}</p>`;
         document.querySelector('#image').innerHTML = `<img class='preview' src=${allData.pixabay.hits[1].webformatURL}>`;                                                    
-
-        if (allData.daysLeft >= 7) {
-            for (let i = 0; i <= allData.weatherbit.data.length; i++) {
-                console.log(allData.weatherbit.data[i].temp);
-            };
-        };
+        
+       
+        
+        
+        
     } catch (error) {
         console.log("error", error);
     }

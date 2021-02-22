@@ -17,16 +17,16 @@
 
     .response {
         display: grid;
-        grid-template-columns: 1fr 1fr 1fr;
+        grid-template-columns: 1fr 1fr ;
         gap: 0px 0px;
-        grid-template-areas: "new new new";
+        grid-template-areas: "new new ";
       
         grid-area: data;
         margin-top: 10px;
     }
     .new {
         grid-area: new;
-        margin-right: 50px;
+        margin: auto;
     }
 
     .entryHolder {
