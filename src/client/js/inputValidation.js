@@ -5,7 +5,7 @@ const checkCity = (city) => {
 
 };
 
-//checkDate returns false if th departure date is in the past
+//checkDate returns false if the departure date is in the past
 const checkDate = (departureDate) => {
     let today = new Date().getTime();
     let departure = new Date(departureDate).getTime();
@@ -18,6 +18,7 @@ const checkDate = (departureDate) => {
     }
 };
 
+//checkDuration returns false if the return date is before the departure
 const checkDuration = (dep, ret) => {
     let depDate = new Date(dep).getTime();
     let retDate = new Date(ret).getTime();
