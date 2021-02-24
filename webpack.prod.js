@@ -41,6 +41,7 @@ plugins: [
         template: "./src/client/views/index.html",
         filename: "./index.html",
     }),
+    //This plugin is very useful for copying all images without having to export one by one
     new CopyWebpackPlugin({
         patterns:[
         { from:'./src/client/media/', to:'images'} 

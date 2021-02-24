@@ -34,7 +34,7 @@ function runApp() {
     } else if (!dateValidate) {
         alert('Departure date can not be in the past!');
     } else if (!departure.value) {
-        alert('Please enetr a departure date')
+        alert('Please enetr a departure date');
     } else if (!validDuration) {
         alert('Please enter a valid return date!');
         console.log(validDuration);

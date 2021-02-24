@@ -1,7 +1,7 @@
 //This function will be called if trip starts beyond a week and adds forecast data to the DOM
 const showForcast = (data) => {
     const forecastTitle = document.getElementById('forecast-box');
-    forecastTitle.innerHTML = `Weather forecast for next two weeks in ${data.cityName}:`;
+    forecastTitle.innerHTML = `Weather forecast for the next two weeks in ${data.cityName}:`;
     let ul = document.getElementById('showForecast');
 
     for (let i = 0; i < data.weather.data.length; i++) {
