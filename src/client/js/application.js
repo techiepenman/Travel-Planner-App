@@ -87,7 +87,7 @@ const postData = async (path = "", data = {}) => {
         document.querySelector("#date").innerHTML = `<h5>Today:</h5><p class='lg-print'>${newDate}</p>`;
         document.querySelector("#temp").innerHTML = `<h5>Current temperature in ${allData.cityName}, ${allData.country}:</h5> <p class='sm-print'>${allData.weather.data[0].temp}° F with ${allData.weather.data[0].weather.description}</p>
         <p> <img class="icon" src='images/${allData.weather.data[0].weather.icon}.png'></p>`;
-        document.querySelector("#user-response").innerHTML = `<h5>Days left to trip:</h5><p class='sm-print'>${allData.daysLeft}</p>
+        document.querySelector("#user-response").innerHTML = `<h5>Your trip will start in:</h5><p class='sm-print'>${allData.daysLeft} days</p>
         <h5>Trip duration:</h5><p class='sm-print'>${tripDuration}</p>
         <h5>Departure Date:</h5><p class='sm-print'>${departure.value}</p>
         <h5>Return Date:</h5><p class='sm-print'>${returnDate.value}</p>`;

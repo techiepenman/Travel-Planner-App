@@ -18,4 +18,3 @@ export {
 
    const button = document.querySelector('#generate');
    button.addEventListener("click", runApp);
-   

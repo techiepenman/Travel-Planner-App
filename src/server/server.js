@@ -3,12 +3,11 @@ dotenv.config();
 const geoUrl = 'http://api.geonames.org/searchJSON?q=';
 const pixaUrl = 'https://pixabay.com/api/?key='
 const wbitKey = process.env.KEY_WEATHERBIT;
-// const apiKey = process.env.API_KEY;
 const userName = process.env.USER_NAME;
 const pixaKey = process.env.KEY_PIXABAY;
 
 // Setup empty JS object to act as endpoint for all routes
-projectData = {};
+// projectData = {};
 
 const fetch = require('node-fetch');
 // Require Express to run server and routes
@@ -16,7 +15,6 @@ const express = require("express");
 
 // Start up an instance of app
 const app = express();
-const port = 3000;
 
 // Cors for cross origin allowance
 const cors = require("cors");
@@ -107,7 +105,9 @@ app.post('/addWeather', async (req, res) => {
         console.log("There's a problem getting info from Pixabay", error)
     }
 });
+module.exports = app
+// app.listen(port, () => {
+//     console.log(`server is running on port ${port}`);
+// });
 
-app.listen(port, () => {
-    console.log(`server is running on port ${port}`);
-});
+
