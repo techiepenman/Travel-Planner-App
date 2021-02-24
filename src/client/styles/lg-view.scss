@@ -8,7 +8,8 @@
             "hd hd hd hd hd"
             ". form form form ."
             ". form form form ."
-            "data data data data data";
+            ". data data data ."
+            "ft ft ft ft ft";
         justify-content: center;
         grid-gap: 1em;
         font-size: 20px;
@@ -24,10 +25,10 @@
         grid-area: data;
         margin-top: 10px;
     }
-    .new {
-        grid-area: new;
-        margin: auto;
-    }
+    // .new {
+    //     grid-area: new;
+    //     margin: auto;
+    // }
 
     .entryHolder {
         grid-area: form;

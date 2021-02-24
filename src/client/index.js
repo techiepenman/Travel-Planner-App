@@ -1,5 +1,5 @@
 // import { handleSubmit } from './js/application'
-import { checkCity } from './js/dateChecker.js'
+import { checkCity } from './js/inputValidation.js'
 import { runApp } from './js/application'
 // import { getData } from './js/application'
 import { postData } from './js/application'

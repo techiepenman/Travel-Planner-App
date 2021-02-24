@@ -7,10 +7,17 @@ body {
   
 }
 
+ul {
+    padding-left: 0px;	
+    margin: auto;
+    padding-inline-start: 60px;
+
+
+}
 //Code snippet for background image from 
 body::after {
     content: "";
-    background: url("../media/travel-4969279_1920.jpg");
+    background: url("../media/lighthouse-1872998_1920.jpg");
     background-repeat:no-repeat;
     opacity: 0.6;
     top: 0;
@@ -30,7 +37,8 @@ body::after {
     grid-template-areas:
         "hd"
         "form"
-        "data";
+        "data"
+        "ft";
 
     justify-content: center;
     grid-gap: 1em;
@@ -56,10 +64,7 @@ body::after {
 
 #header {
     color: #fff;
-    /* height: 20vh; */
     padding: 50px;
-    /* margin: auto; */
-    // background-color: #36befd;
     grid-area: hd;
     font-family: "Inter", sans-serif;
     font-size: 2rem;
@@ -89,7 +94,11 @@ body::after {
 }
 
 .icon {
-    padding: 10px 50px 10px;
+    width: 120px;
+    height: 120px;
+    padding: 15px;
+    background-color: #fff;
+    border-radius: 100%;
 }
 
 .entry {
@@ -115,7 +124,8 @@ body::after {
 }
 
 .post-color {
-    background-color: #fdcf72 !important;
+    
+    background-image: linear-gradient(#00c3ff, #ffff1c) !important;
 }
 
 button {
@@ -155,27 +165,45 @@ button:focus {
     height: auto;
 }
 //new
+#showForecast {
+    margin: 20px auto;
+    display: inline-block;
+    grid-area: data;
+
+}
 .forecast {
-    
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+        transition: 0.3s;
+        padding: 20px 3px;
+        width: 130px;
+        margin: 10px;
         text-align: center;
-        display: flex;
-        flex-direction: column;
+        display: inline-block;
         justify-content: space-between;
-        padding: 2.5em;
         background-color: #fff;
-        border-radius: 2px;
-        // -webkit-transition: box-shadow .3s ease;
-        transition: box-shadow .3s ease;
-        border: 2px solid blue;
-      
+        border-radius: 30px;
+     
 }
 
-// .daily-details{
-	
-// 	position: absolute;
-// 	width: 50px;
-// 	height: 50px;
-//     border: 2px solid red;
-	
-// 	border-radius: 50%;
-// }
+#forecast-box {
+    color: #014052;
+    font-family: "Montserrat", sans-serif;
+    text-align: center;
+    margin: 20px;
+    padding: 10px;
+}
+
+.data {
+    text-align: center;
+}
+.description{
+    font-size: small;
+}
+
+#footer {
+    height: 20vh;
+    grid-area: ft;
+    background-color: #e5eff5;
+    color: #96a0aa;
+    padding: 30px;
+}
