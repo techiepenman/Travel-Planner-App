@@ -2,7 +2,7 @@ import "babel-polyfill";
 const app = require('../src/server/server.js')
 const supertest = require('supertest');
 const request = supertest(app);
-
+// code snippet from https://zellwk.com/blog/endpoint-testing/
 app.get('/test', async (req, res) => {
     res.json({message: 'pass!'})
   })
