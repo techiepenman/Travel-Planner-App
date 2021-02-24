@@ -23,6 +23,8 @@ const showForcast = (data) => {
 //current weather needs to be shown
 
 const removeForecast = (ul) => {
+    const forecastTitle = document.getElementById('forecast-box');
+    forecastTitle.innerHTML = '';
     while (ul.firstChild) {
         ul.removeChild(ul.firstChild);
     }
