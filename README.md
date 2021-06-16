@@ -11,7 +11,7 @@ The app also make another asynchronous Api call to [Pixabay](https://pixabay.com
 - Install npm ``` npm install ``` in the root directory where the project is located. By doing that, all the dependencies associated with this project will be installed.
 
 ## Api keys and user name
-The application will need to make calls to the three external servers [Geonames](https://www.geonames.org/), [Weatherbit](https://www.weatherbit.io/api) and [Pixabay](https://pixabay.com/api/docs/) to post and receive data. For security reasons, API keys and usernames are not exposed publicly so you will need to get the credentials from the above mentioned servers. Once the key is obtained, simply create ```.env``` file in the root directory and place the key/username in the file as follows:  
+The application will need to make calls to three external servers [Geonames](https://www.geonames.org/), [Weatherbit](https://www.weatherbit.io/api) and [Pixabay](https://pixabay.com/api/docs/) to post and receive data. For security reasons, API keys and usernames are not exposed publicly so you will need to get the credentials from the above mentioned servers. Once the key is obtained, simply create ```.env``` file in the root directory and place the key/username in the file as follows:  
 ```USER_NAME=``` "your username for Geonames"  
 ```KEY_WEATHERBIT=``` "your Weatherbit api key"   
 ```KEY_PIXABAY =``` "your Pixabay api key"
